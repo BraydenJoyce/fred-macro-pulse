@@ -1,0 +1,163 @@
+series:
+  # Growth
+  - id: GDPC1
+    title: Real GDP (Quarterly)
+    category: Growth
+    frequency: Quarterly
+
+  - id: A191RL1Q225SBEA
+    title: Real GDP Growth Rate (QoQ SAAR)
+    category: Growth
+    frequency: Quarterly
+
+  # Labor
+  - id: UNRATE
+    title: Unemployment Rate
+    category: Labor
+    frequency: Monthly
+
+  - id: PAYEMS
+    title: Total Nonfarm Payrolls
+    category: Labor
+    frequency: Monthly
+
+  - id: ICSA
+    title: Initial Jobless Claims (Weekly)
+    category: Labor
+    frequency: Weekly
+
+  - id: U6RATE
+    title: Underemployment Rate (U-6)
+    category: Labor
+    frequency: Monthly
+
+  - id: LNS12300000
+    title: Employment-Population Ratio
+    category: Labor
+    frequency: Monthly
+
+  # Inflation
+  - id: CPIAUCSL
+    title: CPI All Items (SA)
+    category: Inflation
+    frequency: Monthly
+
+  - id: CPILFESL
+    title: Core CPI ex Food and Energy (SA)
+    category: Inflation
+    frequency: Monthly
+
+  - id: PCEPI
+    title: PCE Price Index
+    category: Inflation
+    frequency: Monthly
+
+  - id: PCEPILFE
+    title: Core PCE Price Index
+    category: Inflation
+    frequency: Monthly
+
+  - id: PPIFIS
+    title: PPI Final Demand
+    category: Inflation
+    frequency: Monthly
+
+  # Interest Rates
+  - id: FEDFUNDS
+    title: Federal Funds Effective Rate
+    category: Rates
+    frequency: Monthly
+
+  - id: DGS10
+    title: 10-Year Treasury Constant Maturity
+    category: Rates
+    frequency: Daily
+
+  - id: DGS2
+    title: 2-Year Treasury Constant Maturity
+    category: Rates
+    frequency: Daily
+
+  - id: T10Y2Y
+    title: 10Y minus 2Y Treasury Spread
+    category: Rates
+    frequency: Daily
+
+  - id: MORTGAGE30US
+    title: 30-Year Fixed Mortgage Rate
+    category: Rates
+    frequency: Weekly
+
+  # Housing
+  - id: HOUST
+    title: Housing Starts (Total)
+    category: Housing
+    frequency: Monthly
+
+  - id: PERMIT
+    title: New Private Housing Building Permits
+    category: Housing
+    frequency: Monthly
+
+  - id: CSUSHPISA
+    title: Case-Shiller US Home Price Index
+    category: Housing
+    frequency: Monthly
+
+  - id: MSPUS
+    title: Median Sales Price of Houses Sold
+    category: Housing
+    frequency: Quarterly
+
+  # Consumer
+  - id: RSXFS
+    title: Advance Retail Sales ex Food Services
+    category: Consumer
+    frequency: Monthly
+
+  - id: UMCSENT
+    title: University of Michigan Consumer Sentiment
+    category: Consumer
+    frequency: Monthly
+
+  - id: PSAVERT
+    title: Personal Savings Rate
+    category: Consumer
+    frequency: Monthly
+
+  - id: PCE
+    title: Personal Consumption Expenditures
+    category: Consumer
+    frequency: Monthly
+
+  # Industry and Manufacturing
+  - id: INDPRO
+    title: Industrial Production Index
+    category: Industry
+    frequency: Monthly
+
+  - id: IPMAN
+    title: Industrial Production Manufacturing
+    category: Industry
+    frequency: Monthly
+
+  - id: AMTMNO
+    title: Manufacturers New Orders (Total)
+    category: Industry
+    frequency: Monthly
+
+  # Leading Indicators
+  - id: USSLIND
+    title: US Leading Index
+    category: Leading
+    frequency: Monthly
+
+  - id: RECPROUSM156N
+    title: Smoothed US Recession Probability
+    category: Leading
+    frequency: Monthly
+
+  - id: CFNAI
+    title: Chicago Fed National Activity Index
+    category: Leading
+    frequency: Monthly

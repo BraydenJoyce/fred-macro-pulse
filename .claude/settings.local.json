@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv sync *)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(pip install *)"
+    ]
+  }
+}

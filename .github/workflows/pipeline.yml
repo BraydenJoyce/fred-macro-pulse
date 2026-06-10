@@ -1,0 +1,25 @@
+name: Weekly Pipeline
+
+on:
+  schedule:
+    - cron: '0 11 * * 1'   # Every Monday 6AM ET (11AM UTC)
+  workflow_dispatch:         # Manual trigger button in GitHub UI
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - name: Install dependencies
+        run: uv sync
+      - name: Run pipeline
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: uv run python -m fred_macro_pulse.cli run
+      - name: Upload DuckDB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fred-macro-duckdb
+          path: data/fred_macro.duckdb
+          retention-days: 30
