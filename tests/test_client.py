@@ -13,14 +13,16 @@ MOCK_OBSERVATIONS = {
 }
 
 MOCK_SERIES = {
-    "seriess": [{
-        "id": "UNRATE",
-        "title": "Unemployment Rate",
-        "units": "Percent",
-        "frequency": "Monthly",
-        "seasonal_adjustment": "Seasonally Adjusted",
-        "notes": None,
-    }]
+    "seriess": [
+        {
+            "id": "UNRATE",
+            "title": "Unemployment Rate",
+            "units": "Percent",
+            "frequency": "Monthly",
+            "seasonal_adjustment": "Seasonally Adjusted",
+            "notes": None,
+        }
+    ]
 }
 
 

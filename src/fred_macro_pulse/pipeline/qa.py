@@ -28,7 +28,4 @@ CHECKS: list[tuple[str, str, Callable[[object], bool]]] = [
 
 
 def run_checks(conn: duckdb.DuckDBPyConnection) -> list[tuple[str, bool]]:
-    return [
-        (name, passes(conn.execute(query).fetchone()[0]))
-        for name, query, passes in CHECKS
-    ]
+    return [(name, passes(conn.execute(query).fetchone()[0])) for name, query, passes in CHECKS]

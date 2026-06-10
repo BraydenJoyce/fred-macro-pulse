@@ -24,4 +24,5 @@ def bootstrap(conn: duckdb.DuckDBPyConnection) -> None:
 
 def get_connection() -> duckdb.DuckDBPyConnection:
     from ..config.settings import get_settings
+
     return duckdb.connect(get_settings().db_path)

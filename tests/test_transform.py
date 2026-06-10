@@ -15,10 +15,13 @@ def make_response(series_id: str, observations: list[tuple[str, str]]) -> Observ
 
 
 def test_missing_values_become_null():
-    resp = make_response("UNRATE", [
-        ("2024-01-01", "."),
-        ("2024-02-01", "3.7"),
-    ])
+    resp = make_response(
+        "UNRATE",
+        [
+            ("2024-01-01", "."),
+            ("2024-02-01", "3.7"),
+        ],
+    )
     df = to_dataframe([resp])
     assert len(df) == 1
     assert df["value"][0] == pytest.approx(3.7)

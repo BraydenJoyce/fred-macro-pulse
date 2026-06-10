@@ -9,9 +9,11 @@ from fred_macro_pulse.pipeline.load import load_raw_observations, load_series_me
 
 def _df(rows: list[tuple]) -> pl.DataFrame:
     return pl.DataFrame(
-        {"series_id": [r[0] for r in rows],
-         "observation_date": [r[1] for r in rows],
-         "value": [r[2] for r in rows]},
+        {
+            "series_id": [r[0] for r in rows],
+            "observation_date": [r[1] for r in rows],
+            "value": [r[2] for r in rows],
+        },
     ).with_columns(pl.col("observation_date").cast(pl.Date))
 
 
@@ -61,16 +63,18 @@ def test_load_raw_observations_appends(tmp_db):
 
 
 def test_load_series_metadata_upserts(tmp_db):
-    records = [{
-        "series_id": "UNRATE",
-        "title": "Unemployment Rate",
-        "units": "Percent",
-        "frequency": "Monthly",
-        "seasonal_adjustment": "Seasonally Adjusted",
-        "category": "Labor",
-        "notes": None,
-        "last_updated": datetime.now(UTC),
-    }]
+    records = [
+        {
+            "series_id": "UNRATE",
+            "title": "Unemployment Rate",
+            "units": "Percent",
+            "frequency": "Monthly",
+            "seasonal_adjustment": "Seasonally Adjusted",
+            "category": "Labor",
+            "notes": None,
+            "last_updated": datetime.now(UTC),
+        }
+    ]
     load_series_metadata(tmp_db, records)
     row = tmp_db.execute(
         "SELECT title, category FROM dim_series WHERE series_id = 'UNRATE'"

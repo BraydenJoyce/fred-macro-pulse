@@ -6,11 +6,13 @@ from ..client.models import ObservationsResponse
 def to_dataframe(responses: list[ObservationsResponse]) -> pl.DataFrame:
     """Convert API responses to a cleaned Polars DataFrame."""
     if not responses:
-        return pl.DataFrame(schema={
-            "series_id": pl.Utf8,
-            "observation_date": pl.Date,
-            "value": pl.Float64,
-        })
+        return pl.DataFrame(
+            schema={
+                "series_id": pl.Utf8,
+                "observation_date": pl.Date,
+                "value": pl.Float64,
+            }
+        )
 
     records = [
         {

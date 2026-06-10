@@ -51,15 +51,17 @@ async def extract_all(
         if isinstance(result, Exception):
             logger.warning("Failed to fetch metadata for %s: %s", sid, result)
         else:
-            metadata.append({
-                "series_id": result.id,
-                "title": result.title,
-                "units": result.units,
-                "frequency": result.frequency,
-                "seasonal_adjustment": result.seasonal_adjustment,
-                "category": None,  # enriched from YAML catalog in CLI
-                "notes": result.notes,
-                "last_updated": now,
-            })
+            metadata.append(
+                {
+                    "series_id": result.id,
+                    "title": result.title,
+                    "units": result.units,
+                    "frequency": result.frequency,
+                    "seasonal_adjustment": result.seasonal_adjustment,
+                    "category": None,  # enriched from YAML catalog in CLI
+                    "notes": result.notes,
+                    "last_updated": now,
+                }
+            )
 
     return observations, metadata

@@ -32,11 +32,14 @@ def _check_regime_change(conn, run_id: str) -> None:
     row = conn.execute("SELECT DISTINCT macro_regime FROM v_macro_composite LIMIT 1").fetchone()
     current = row[0] if row else None
 
-    prev_row = conn.execute("""
+    prev_row = conn.execute(
+        """
         SELECT macro_regime FROM pipeline_runs
         WHERE status = 'success' AND run_id != ? AND macro_regime IS NOT NULL
         ORDER BY finished_at DESC LIMIT 1
-    """, [run_id]).fetchone()
+    """,
+        [run_id],
+    ).fetchone()
     prev = prev_row[0] if prev_row else None
 
     conn.execute("UPDATE pipeline_runs SET macro_regime = ? WHERE run_id = ?", [current, run_id])
@@ -96,14 +99,17 @@ def run(
         upsert_facts(conn, df)
         load_series_metadata(conn, metadata)
 
-        conn.execute("""
+        conn.execute(
+            """
             UPDATE pipeline_runs SET
                 finished_at  = ?,
                 series_count = ?,
                 rows_loaded  = ?,
                 status       = 'success'
             WHERE run_id = ?
-        """, [datetime.now(UTC), len(responses), n_raw, run_id])
+        """,
+            [datetime.now(UTC), len(responses), n_raw, run_id],
+        )
 
         logger.info("Loaded %d raw rows across %d series.", n_raw, len(responses))
 
@@ -119,13 +125,16 @@ def run(
 
     except Exception as exc:
         if not dry_run:
-            conn.execute("""
+            conn.execute(
+                """
                 UPDATE pipeline_runs SET
                     finished_at = ?,
                     status      = 'failed',
                     error_msg   = ?
                 WHERE run_id = ?
-            """, [datetime.now(UTC), str(exc), run_id])
+            """,
+                [datetime.now(UTC), str(exc), run_id],
+            )
         logger.error("Pipeline failed: %s", exc)
         raise typer.Exit(1) from exc
 
