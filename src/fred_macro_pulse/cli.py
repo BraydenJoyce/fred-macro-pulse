@@ -1,4 +1,5 @@
 import asyncio
+import json
 import logging
 import uuid
 from datetime import UTC, datetime
@@ -21,6 +22,31 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = typer.Typer(help="FRED Macro Pulse — incremental ETL for Federal Reserve economic data.")
+
+
+_REGIME_FLAG = Path("data/regime_changed.json")
+
+
+def _check_regime_change(conn, run_id: str) -> None:
+    """Detect macro regime shift and write flag file for CI notification."""
+    row = conn.execute("SELECT DISTINCT macro_regime FROM v_macro_composite LIMIT 1").fetchone()
+    current = row[0] if row else None
+
+    prev_row = conn.execute("""
+        SELECT macro_regime FROM pipeline_runs
+        WHERE status = 'success' AND run_id != ? AND macro_regime IS NOT NULL
+        ORDER BY finished_at DESC LIMIT 1
+    """, [run_id]).fetchone()
+    prev = prev_row[0] if prev_row else None
+
+    conn.execute("UPDATE pipeline_runs SET macro_regime = ? WHERE run_id = ?", [current, run_id])
+
+    _REGIME_FLAG.parent.mkdir(exist_ok=True)
+    if prev and current and prev != current:
+        logger.warning("REGIME CHANGE: %s -> %s", prev, current)
+        _REGIME_FLAG.write_text(json.dumps({"from": prev, "to": current}))
+    elif _REGIME_FLAG.exists():
+        _REGIME_FLAG.unlink()
 
 
 def load_catalog() -> list[dict]:
@@ -88,6 +114,8 @@ def run(
                 logger.warning("QA FAIL: %s", name)
             if not failed:
                 logger.info("All QA checks passed.")
+
+        _check_regime_change(conn, run_id)
 
     except Exception as exc:
         if not dry_run:

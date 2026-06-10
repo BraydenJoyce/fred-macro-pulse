@@ -23,3 +23,34 @@ jobs:
           name: fred-macro-duckdb
           path: data/fred_macro.duckdb
           retention-days: 30
+      - name: Check for regime change
+        id: regime
+        run: |
+          if [ -f data/regime_changed.json ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "details=$(cat data/regime_changed.json)" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Send regime change alert
+        if: steps.regime.outputs.changed == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "FRED Macro Pulse: Regime Change Alert"
+          to: ${{ secrets.ALERT_EMAIL }}
+          from: FRED Macro Pulse <${{ secrets.GMAIL_USER }}>
+          body: |
+            A macro regime change was detected during the weekly pipeline run.
+
+            Change: ${{ steps.regime.outputs.details }}
+
+            View the full dashboard at your Streamlit Cloud URL.
+
+            ---
+            Pipeline run: ${{ github.run_id }}
+            Triggered: ${{ github.event_name }}

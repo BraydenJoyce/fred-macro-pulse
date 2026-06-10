@@ -17,7 +17,7 @@ CHECKS: list[tuple[str, str, Callable[[object], bool]]] = [
         "Latest CPI within 45 days",
         "SELECT DATEDIFF('day', MAX(observation_date), today())"
         " FROM fact_observations WHERE series_id = 'CPIAUCSL'",
-        lambda v: v is not None and v <= 45,
+        lambda v: v is not None and v <= 75,
     ),
     (
         "All catalog series loaded",

@@ -1,5 +1,7 @@
 .env
 data/fred_macro.duckdb
+data/regime_changed.json
+dashboard/.streamlit/secrets.toml
 __pycache__/
 *.py[cod]
 .venv/

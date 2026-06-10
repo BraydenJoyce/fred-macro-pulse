@@ -31,10 +31,6 @@ series:
     category: Labor
     frequency: Monthly
 
-  - id: LNS12300000
-    title: Employment-Population Ratio
-    category: Labor
-    frequency: Monthly
 
   # Inflation
   - id: CPIAUCSL
