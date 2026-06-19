@@ -3,7 +3,17 @@
     "allow": [
       "Bash(uv sync *)",
       "PowerShell(Get-ChildItem *)",
-      "PowerShell(pip install *)"
+      "PowerShell(pip install *)",
+      "Bash(uv run *)",
+      "Bash(taskkill /F /PID 23424)",
+      "PowerShell(Stop-Process *)",
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git commit -m 'style: ruff format *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)"
     ]
   }
 }
